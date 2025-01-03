@@ -13,32 +13,43 @@ function printStats(user) {
     console.log(`${user.name}: ${user.score}`);
 }
 
-const user1 = {
-    name: "Phil",
-    score: 4,
-    increment: function() {
-        user1.score++;
+
+function userCreator(name, score) {
+    const newUser = {};
+    newUser.name = name;
+    newUser.score = score;
+    newUser.increment = function() {
+        newUser.score++;
     }
+    return newUser;
 }
 
-user1.increment()
-printStats(user1)
 
-const user2 = {}
+// const user1 = {
+//     name: "Phil",
+//     score: 4,
+//     increment: function() {
+//         user1.score++;
+//     }
+// }
 
-user2.name = "Julia"
-user2.score = 5;
-user2.increment = function() {
-    user2.score++;
-}
+// const user2 = {}
+// user2.name = "Julia"
+// user2.score = 5;
+// user2.increment = function() {
+//     user2.score++;
+// }
 
-printStats(user2)
+// const user3 = Object.create(null)
+// user3.name = "Eva"
+// user3.score = 9;
+// user3.increment = function() {
+//     user3.score++;
+// }
 
-const user3 = Object.create(null)
-user3.name = "Eva"
-user3.score = 9;
-user3.increment = function() {
-    user3.score++;
-}
-
-printStats(user3)
+const user1 = userCreator("Phil", 4);
+const user2 = userCreator("Julia", 5);
+const user3 = userCreator("Eva", 9);
+printStats(user1);
+printStats(user2);
+printStats(user3);
