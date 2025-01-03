@@ -13,18 +13,6 @@ function printStats(user) {
     console.log(`${user.name}: ${user.score}`);
 }
 
-
-function userCreator(name, score) {
-    const newUser = {};
-    newUser.name = name;
-    newUser.score = score;
-    newUser.increment = function() {
-        newUser.score++;
-    }
-    return newUser;
-}
-
-
 // const user1 = {
 //     name: "Phil",
 //     score: 4,
@@ -47,9 +35,65 @@ function userCreator(name, score) {
 //     user3.score++;
 // }
 
+// function userCreator(name, score) {
+//     const newUser = {};
+//     newUser.name = name;
+//     newUser.score = score;
+//     newUser.increment = function() {
+//         newUser.score++;
+//     }
+//     return newUser;
+// }
+
+// const user1 = userCreator("Phil", 4);
+// const user2 = userCreator("Julia", 5);
+// const user3 = userCreator("Eva", 9);
+// printStats(user1);
+// increment(user1);
+// printStats(user1);
+// printStats(user2);
+// printStats(user3);
+
+/*
+ * TODO: make a function that can call the
+ *  user and attach the function to it
+ */
+// const functionStore = {
+//     increment: function() {
+//         this.score++
+//     },
+//     login: function() {
+//         console.log("You're loggedin")
+//     }
+// }
+
+// const user1 = {
+//     name: "Phil",
+//     score: 4
+// }
+
+
+
+function userCreator(name, score) {
+    const newUser = Object.create(userFunctionStore);
+    newUser.name = name;
+    newUser.score = score;
+    return newUser;
+}
+
+const userFunctionStore = {
+    increment: function() {
+        this.score++
+    },
+    login: function() {
+        console.log("You're loggedin");
+    }
+}
+
 const user1 = userCreator("Phil", 4);
 const user2 = userCreator("Julia", 5);
-const user3 = userCreator("Eva", 9);
 printStats(user1);
 printStats(user2);
-printStats(user3);
+user1.increment()
+printStats(user1);
+
