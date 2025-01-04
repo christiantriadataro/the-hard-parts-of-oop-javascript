@@ -13,87 +13,57 @@ function printStats(user) {
     console.log(`${user.name}: ${user.score}`);
 }
 
-// const user1 = {
-//     name: "Phil",
-//     score: 4,
+// const userFunctionStore = {
 //     increment: function() {
-//         user1.score++;
+//         this.score++
+//     },
+//     login: function() {
+//         console.log("You're loggedin");
 //     }
-// }
-
-// const user2 = {}
-// user2.name = "Julia"
-// user2.score = 5;
-// user2.increment = function() {
-//     user2.score++;
-// }
-
-// const user3 = Object.create(null)
-// user3.name = "Eva"
-// user3.score = 9;
-// user3.increment = function() {
-//     user3.score++;
 // }
 
 // function userCreator(name, score) {
-//     const newUser = {};
+//     const newUser = Object.create(userFunctionStore);
+//     console.log(newUser)
 //     newUser.name = name;
 //     newUser.score = score;
-//     newUser.increment = function() {
-//         newUser.score++;
-//     }
 //     return newUser;
 // }
 
 // const user1 = userCreator("Phil", 4);
 // const user2 = userCreator("Julia", 5);
-// const user3 = userCreator("Eva", 9);
-// printStats(user1);
-// increment(user1);
 // printStats(user1);
 // printStats(user2);
-// printStats(user3);
+// user1.increment()
+// printStats(user1);
 
-/*
- * TODO: make a function that can call the
- *  user and attach the function to it
- */
-// const functionStore = {
-//     increment: function() {
-//         this.score++
-//     },
-//     login: function() {
-//         console.log("You're loggedin")
-//     }
+// function multiplyBy2(num) {
+//     return num*2
 // }
+//
+// multiplyBy2.stored = 5
+// console.log(multiplyBy2(3))
+//
+// console.log(multiplyBy2.stored)
+// console.log(multiplyBy2.prototype)
 
-// const user1 = {
-//     name: "Phil",
-//     score: 4
-// }
-
-
-
-function userCreator(name, score) {
-    const newUser = Object.create(userFunctionStore);
-    newUser.name = name;
-    newUser.score = score;
-    return newUser;
+function UserCreator(name, score) {
+    this.name = name;
+    this.score = score;
 }
 
-const userFunctionStore = {
-    increment: function() {
-        this.score++
-    },
-    login: function() {
-        console.log("You're loggedin");
+UserCreator.prototype.increment = function() {
+    const add1 = () => {
+        this.score++;
     }
+    add1();
 }
 
-const user1 = userCreator("Phil", 4);
-const user2 = userCreator("Julia", 5);
-printStats(user1);
-printStats(user2);
-user1.increment()
-printStats(user1);
+UserCreator.prototype.login = function() {
+    console.log("login")
+}
 
+const user1 = new UserCreator("Eva", 9)
+printStats(user1);
+user1.increment();
+printStats(user1);
