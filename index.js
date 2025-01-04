@@ -13,57 +13,51 @@ function printStats(user) {
     console.log(`${user.name}: ${user.score}`);
 }
 
-// const userFunctionStore = {
-//     increment: function() {
-//         this.score++
-//     },
-//     login: function() {
-//         console.log("You're loggedin");
+// Solution 3
+// function UserCreator(name, score) {
+//     this.name = name;
+//     this.score = score;
+// }
+//
+// UserCreator.prototype.increment = function() {
+//     const add1 = () => {
+//         this.score++;
 //     }
-// }
-
-// function userCreator(name, score) {
-//     const newUser = Object.create(userFunctionStore);
-//     console.log(newUser)
-//     newUser.name = name;
-//     newUser.score = score;
-//     return newUser;
-// }
-
-// const user1 = userCreator("Phil", 4);
-// const user2 = userCreator("Julia", 5);
-// printStats(user1);
-// printStats(user2);
-// user1.increment()
-// printStats(user1);
-
-// function multiplyBy2(num) {
-//     return num*2
+//     add1();
 // }
 //
-// multiplyBy2.stored = 5
-// console.log(multiplyBy2(3))
+// UserCreator.prototype.login = function() {
+//     console.log("login")
+// }
 //
-// console.log(multiplyBy2.stored)
-// console.log(multiplyBy2.prototype)
+// const user1 = new UserCreator("Eva", 9)
+// printStats(user1);
+// user1.increment();
+// printStats(user1);
 
-function UserCreator(name, score) {
-    this.name = name;
-    this.score = score;
-}
-
-UserCreator.prototype.increment = function() {
-    const add1 = () => {
+// Solution 4
+class UserCreator {
+    constructor(name, score) {
+        this.name = name;
+        this.score = score;
+    }
+    increment() {
         this.score++;
     }
-    add1();
+    login() {
+        console.log("login")
+    }
 }
 
-UserCreator.prototype.login = function() {
-    console.log("login")
+const user1 = new UserCreator("Eva", 9);
+printStats(user1);
+user1.increment()
+printStats(user1);
+
+const obj = {
+    num: 3
 }
 
-const user1 = new UserCreator("Eva", 9)
-printStats(user1);
-user1.increment();
-printStats(user1);
+console.log(obj.num);
+console.log(obj.hasOwnProperty("num"))
+console.log(Object.prototype)
