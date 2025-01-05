@@ -36,28 +36,39 @@ function printStats(user) {
 // printStats(user1);
 
 // Solution 4
-class UserCreator {
-    constructor(name, score) {
-        this.name = name;
-        this.score = score;
-    }
-    increment() {
-        this.score++;
-    }
-    login() {
-        console.log("login")
-    }
-}
+// class UserCreator {
+//     constructor(name, score) {
+//         this.name = name;
+//         this.score = score;
+//     }
+//     increment() {
+//         this.score++;
+//     }
+//     login() {
+//         console.log("login")
+//     }
+// }
+//
+// const user1 = new UserCreator("Eva", 9);
+// printStats(user1);
+// user1.increment()
+// printStats(user1);
+//
+// const obj = {
+//     num: 3
+// }
+//
+// console.log(obj.num);
+// console.log(obj.hasOwnProperty("num"))
+// console.log(Object.prototype)
+// console.log(obj.__proto__)
 
-const user1 = new UserCreator("Eva", 9);
-printStats(user1);
-user1.increment()
-printStats(user1);
-
-const obj = {
-    num: 3
-}
-
-console.log(obj.num);
-console.log(obj.hasOwnProperty("num"))
-console.log(Object.prototype)
+// function multiplyBy2(num) {
+//     return num * 2
+// }
+//
+// console.log(multiplyBy2.toString())
+// console.log(Function.prototype)
+// console.log(multiplyBy2.hasOwnProperty("score"))
+// console.log(Function.prototype.__proto__)
+// console.log(Function.__proto__)
