@@ -9,8 +9,9 @@
  * - get user score
  * - and more
  */
-function printStats(user) {
-    console.log(`${user.name}: ${user.score}`);
+function printStats() {
+    console.log(`${this.name}: ${this.score}`);
+    console.log(`balance: ${this.accountBalance}`)
 }
 
 // Solution 3
@@ -72,3 +73,49 @@ function printStats(user) {
 // console.log(multiplyBy2.hasOwnProperty("score"))
 // console.log(Function.prototype.__proto__)
 // console.log(Function.__proto__)
+
+// Solution 1:Factory function approach
+function userCreator(name, score) {
+    const newUser = Object.create(userFunctions)
+    newUser.name = name;
+    newUser.score = score;
+    return newUser;
+}
+
+const userFunctions = {
+    sayName: function() {
+        console.log(`I'm ${this.name}`)
+    },
+    increment: function() {
+        this.score++
+    }
+}
+
+const user1 = userCreator("Phil", 5)
+user1.sayName()
+printStats(user1)
+
+function paidUserCreator(paidName, paidScore, accountBalance) {
+    const newPaidUser = userCreator(paidName, paidScore);
+    newPaidUser.sayName()
+    Object.setPrototypeOf(newPaidUser, paidUserFunctions);
+    newPaidUser.printStats()
+    newPaidUser.accountBalance = accountBalance;
+    newPaidUser.printStats()
+    return newPaidUser;
+}
+
+const paidUserFunctions = {
+    increaseBalance: function() {
+        this.accountBalance++;
+    },
+    printStats
+}
+
+Object.setPrototypeOf(paidUserFunctions, userFunctions)
+
+const paidUser1 = paidUserCreator("Alyssa", 8, 25);
+printStats(paidUser1);
+paidUser1.increaseBalance()
+paidUser1.sayName()
+printStats(paidUser1);
