@@ -122,37 +122,68 @@ function printStats(user) {
 // printStats(paidUser1);
 
 // Solution 2: Constructor (Pseudoclassical) approach
-function UserCreator(name, score) {
-    this.name = name;
-    this.score = score;
-}
-UserCreator.prototype.sayName = function() {
-    console.log(`I'm ${this.name}`)
-}
-UserCreator.prototype.increment = function() {
-    this.score++;
+// function UserCreator(name, score) {
+//     this.name = name;
+//     this.score = score;
+// }
+// UserCreator.prototype.sayName = function() {
+//     console.log(`I'm ${this.name}`)
+// }
+// UserCreator.prototype.increment = function() {
+//     this.score++;
+// }
+//
+// const user1 = new UserCreator("Phil", 5)
+// printStats(user1);
+// const user2 = new UserCreator("Tim", 4)
+// printStats(user2);
+// user1.sayName()
+//
+// function PaidUserCreator(paidName, paidScore, accountBalance) {
+//     // UserCreator.call(this, paidName, paidScore);
+//     UserCreator.apply(this, [paidName, paidScore])
+//     this.accountBalance = accountBalance;
+// }
+//
+// PaidUserCreator.prototype = Object.create(UserCreator.prototype)
+// PaidUserCreator.prototype.increaseBalance = function() {
+//     this.accountBalance++;
+// }
+//
+// const paidUser1 = new PaidUserCreator("Alyssa", 8, 25);
+// printStats(paidUser1);
+// paidUser1.increaseBalance()
+// printStats(paidUser1);
+// paidUser1.sayName()
+
+// Solution 3: ES2015 Class Approach
+class userCreator {
+    constructor(name, score) {
+        this.name = name;
+        this.score = score;
+    }
+    sayName() {
+        console.log(`I'm ${this.name}`)
+    }
+    increment() {
+        this.score++
+    }
 }
 
-const user1 = new UserCreator("Phil", 5)
-printStats(user1);
-const user2 = new UserCreator("Tim", 4)
-printStats(user2);
-user1.sayName()
+const user1 = new userCreator("Phil", 4);
+user1.sayName();
+const user2 = new userCreator("Tim", 4);
 
-function PaidUserCreator(paidName, paidScore, accountBalance) {
-    // UserCreator.call(this, paidName, paidScore);
-    UserCreator.apply(this, [paidName, paidScore])
-    this.accountBalance = accountBalance;
+class paidUserCreator extends userCreator {
+    constructor(paidName, paidScore, accountBalance) {
+        super(paidName, paidScore);
+        this.accountBalance = accountBalance;
+    }
+    increaseBalance() {
+        this.accountBalance++;
+    }
 }
 
-PaidUserCreator.prototype = Object.create(UserCreator.prototype)
-PaidUserCreator.prototype.increaseBalance = function() {
-    this.accountBalance++;
-}
-
-const paidUser1 = new PaidUserCreator("Alyssa", 8, 25);
-printStats(paidUser1);
+const paidUser1 = new paidUserCreator("Alyssa", 8, 25);
 paidUser1.increaseBalance()
-printStats(paidUser1);
-paidUser1.sayName()
-
+paidUser1.sayName();
