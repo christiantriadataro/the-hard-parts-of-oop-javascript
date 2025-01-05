@@ -9,9 +9,10 @@
  * - get user score
  * - and more
  */
-function printStats() {
-    console.log(`${this.name}: ${this.score}`);
-    console.log(`balance: ${this.accountBalance}`)
+function printStats(user) {
+    console.log(":::::::::::Print Stats:::::::")
+    console.log(`${user.name}: ${user.score}`);
+    console.log(`balance: ${user.accountBalance}`)
 }
 
 // Solution 3
@@ -75,47 +76,83 @@ function printStats() {
 // console.log(Function.__proto__)
 
 // Solution 1:Factory function approach
-function userCreator(name, score) {
-    const newUser = Object.create(userFunctions)
-    newUser.name = name;
-    newUser.score = score;
-    return newUser;
+// function userCreator(name, score) {
+//     const newUser = Object.create(userFunctions)
+//     newUser.name = name;
+//     newUser.score = score;
+//     return newUser;
+// }
+//
+// const userFunctions = {
+//     sayName: function() {
+//         console.log(`I'm ${this.name}`)
+//     },
+//     increment: function() {
+//         this.score++
+//     }
+// }
+//
+// const user1 = userCreator("Phil", 5)
+// user1.sayName()
+// printStats(user1)
+//
+// function paidUserCreator(paidName, paidScore, accountBalance) {
+//     const newPaidUser = userCreator(paidName, paidScore);
+//     newPaidUser.sayName()
+//     Object.setPrototypeOf(newPaidUser, paidUserFunctions);
+//     newPaidUser.printStats()
+//     newPaidUser.accountBalance = accountBalance;
+//     newPaidUser.printStats()
+//     return newPaidUser;
+// }
+//
+// const paidUserFunctions = {
+//     increaseBalance: function() {
+//         this.accountBalance++;
+//     },
+//     printStats
+// }
+//
+// Object.setPrototypeOf(paidUserFunctions, userFunctions)
+//
+// const paidUser1 = paidUserCreator("Alyssa", 8, 25);
+// printStats(paidUser1);
+// paidUser1.increaseBalance()
+// paidUser1.sayName()
+// printStats(paidUser1);
+
+// Solution 2: Constructor (Pseudoclassical) approach
+function UserCreator(name, score) {
+    this.name = name;
+    this.score = score;
+}
+UserCreator.prototype.sayName = function() {
+    console.log(`I'm ${this.name}`)
+}
+UserCreator.prototype.increment = function() {
+    this.score++;
 }
 
-const userFunctions = {
-    sayName: function() {
-        console.log(`I'm ${this.name}`)
-    },
-    increment: function() {
-        this.score++
-    }
-}
-
-const user1 = userCreator("Phil", 5)
+const user1 = new UserCreator("Phil", 5)
+printStats(user1);
+const user2 = new UserCreator("Tim", 4)
+printStats(user2);
 user1.sayName()
-printStats(user1)
 
-function paidUserCreator(paidName, paidScore, accountBalance) {
-    const newPaidUser = userCreator(paidName, paidScore);
-    newPaidUser.sayName()
-    Object.setPrototypeOf(newPaidUser, paidUserFunctions);
-    newPaidUser.printStats()
-    newPaidUser.accountBalance = accountBalance;
-    newPaidUser.printStats()
-    return newPaidUser;
+function PaidUserCreator(paidName, paidScore, accountBalance) {
+    // UserCreator.call(this, paidName, paidScore);
+    UserCreator.apply(this, [paidName, paidScore])
+    this.accountBalance = accountBalance;
 }
 
-const paidUserFunctions = {
-    increaseBalance: function() {
-        this.accountBalance++;
-    },
-    printStats
+PaidUserCreator.prototype = Object.create(UserCreator.prototype)
+PaidUserCreator.prototype.increaseBalance = function() {
+    this.accountBalance++;
 }
 
-Object.setPrototypeOf(paidUserFunctions, userFunctions)
-
-const paidUser1 = paidUserCreator("Alyssa", 8, 25);
+const paidUser1 = new PaidUserCreator("Alyssa", 8, 25);
 printStats(paidUser1);
 paidUser1.increaseBalance()
-paidUser1.sayName()
 printStats(paidUser1);
+paidUser1.sayName()
+
