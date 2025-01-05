@@ -157,33 +157,70 @@ function printStats(user) {
 // paidUser1.sayName()
 
 // Solution 3: ES2015 Class Approach
-class userCreator {
-    constructor(name, score) {
-        this.name = name;
-        this.score = score;
-    }
-    sayName() {
-        console.log(`I'm ${this.name}`)
-    }
-    increment() {
-        this.score++
-    }
+// class userCreator {
+//     constructor(name, score) {
+//         this.name = name;
+//         this.score = score;
+//     }
+//     sayName() {
+//         console.log(`I'm ${this.name}`)
+//     }
+//     increment() {
+//         this.score++
+//     }
+// }
+//
+// const user1 = new userCreator("Phil", 4);
+// user1.sayName();
+// const user2 = new userCreator("Tim", 4);
+//
+// class paidUserCreator extends userCreator {
+//     constructor(paidName, paidScore, accountBalance) {
+//         super(paidName, paidScore);
+//         this.accountBalance = accountBalance;
+//     }
+//     increaseBalance() {
+//         this.accountBalance++;
+//     }
+// }
+//
+// const paidUser1 = new paidUserCreator("Alyssa", 8, 25);
+// paidUser1.increaseBalance()
+// paidUser1.sayName();
+
+
+// const obj = {
+//     num: 3,
+//     increment: function() {
+//         this.num++
+//     }
+// }
+//
+// const otherObj = {
+//     num: 10
+// }
+//
+// console.log("obj: " + obj.num)
+// obj.increment()
+// console.log("obj: " + obj.num)
+//
+// console.log("otherObj: " + otherObj.num)
+// obj.increment.call(otherObj)
+// console.log("otherObj: " + otherObj.num)
+
+function userCreator(name, score) {
+    this.name = name;
+    this.score = score;
 }
 
-const user1 = new userCreator("Phil", 4);
-user1.sayName();
+userCreator.prototype.sayName = function() {
+    console.log(`I'm ${this.name}`)
+}
+
+userCreator.prototype.increment = function() {
+    this.score++;
+}
+
+const user1 = new userCreator("Phil", 5);
 const user2 = new userCreator("Tim", 4);
-
-class paidUserCreator extends userCreator {
-    constructor(paidName, paidScore, accountBalance) {
-        super(paidName, paidScore);
-        this.accountBalance = accountBalance;
-    }
-    increaseBalance() {
-        this.accountBalance++;
-    }
-}
-
-const paidUser1 = new paidUserCreator("Alyssa", 8, 25);
-paidUser1.increaseBalance()
-paidUser1.sayName();
+user1.sayName()
